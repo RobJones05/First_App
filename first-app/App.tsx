@@ -6,9 +6,10 @@ export default function App() {
   return (
     <View >
 
-      <Image source={require('./_images/zamalek.jpeg')}/>
+      <Image style={styles.mainImg}
+       source={require('./_images/zamalek.jpeg')}/>
 
-
+ 
       <Text style={styles.WelcomeTxt}>Lets see if this works</Text>
 
       <Text style={styles.enterTxt}>Does this even work:</Text>
@@ -39,5 +40,13 @@ enterTxt: {
 
 userInputTxt: {
   borderBottomWidth: 1
+},
+
+mainImg: {
+  height: 250,
+  width: 270,
+  paddingTop: 25,
+  justifyContent: 'center',
+  alignItems: 'center'
 }
 });
