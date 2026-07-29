@@ -6,10 +6,12 @@ export default function App() {
   return (
     <View >
       <Text style={styles.WelcomeTxt}>Lets see if this works</Text>
-      <Text>Does this even work:</Text>
+
+      <Text style={styles.enterTxt}>Does this even work:</Text>
       <TextInput placeholder="DoesWork"/>
       <Text>Enter your surname</Text>
       <TextInput placeholder="Doe"/>
+
 
     <Button title="Add User"/>
 
@@ -26,4 +28,12 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center'
   },
+
+enterTxt: {
+  fontWeight: 'bold',
+},
+
+userInputTxt: {
+  borderBottomWidth: 1
+}
 });
