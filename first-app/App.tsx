@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Lets see if this works</Text>
+    <View >
+      <Text style={styles.WelcomeTxt}>Lets see if this works</Text>
       <Text>Does this even work:</Text>
       <TextInput placeholder="DoesWork"/>
       <Text>Enter your surname</Text>
@@ -19,10 +19,11 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  WelcomeTxt: {
+    paddingTop: 40,
+    color: 'blue',
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center'
   },
 });
