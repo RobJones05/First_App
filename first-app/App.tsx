@@ -12,6 +12,9 @@ export default function App() {
  
       <Text style={styles.WelcomeTxt}>Lets see if this works</Text>
 
+
+      <View> style={styles.inputFlex}/</View>
+
       <Text style={styles.enterTxt}>Does this even work:</Text>
       <TextInput placeholder="DoesWork"/>
       <Text>Enter your surname</Text>
@@ -48,5 +51,13 @@ mainImg: {
   paddingTop: 25,
   justifyContent: 'center',
   alignItems: 'center'
+},
+
+inputFlex: {
+  flexDirection: 'row',
+  marginTop: 25
 }
+
+
+
 });
