@@ -1,10 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
 
 
 export default function App() {
   return (
     <View >
+
+      <Image source={require('./_images/zamalek.jpeg')}/>
+
+
       <Text style={styles.WelcomeTxt}>Lets see if this works</Text>
 
       <Text style={styles.enterTxt}>Does this even work:</Text>
