@@ -1,8 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useState } from 'react';
 
 export default function App() {
+
+  const [Name, setName] = useState('');
+  const [Surname, setSurname] = useState('');
+
+  console.log("App is running")
+
   return (
     <View >
 
@@ -13,15 +21,42 @@ export default function App() {
       <Text style={styles.WelcomeTxt}>Lets see if this works</Text>
 
 
-      <View> style={styles.inputFlex}/</View>
+      <View style={styles.inputFlex}>
 
-      <Text style={styles.enterTxt}>Does this even work:</Text>
-      <TextInput placeholder="DoesWork"/>
+      <Text style={styles.enterTxt}>Enter your surname</Text>
+      <TextInput 
+      placeholder="John"
+      value={Name}
+      onChangeText={(text) =>
+      setName(text.replace(/[^a-zA-Z\s]/g, ""))
+  }
+     autoCapitalize="words"
+     autoComplete="name"
+     keyboardType="default"
+/>
+    
+    </View>
+      <View style={styles.inputFlex}>
       <Text>Enter your surname</Text>
-      <TextInput placeholder="Doe"/>
+      <TextInput
+      placeholder="Doe"
+      value={Surname}
+      onChangeText={(text) =>
+      setSurname(text.replace(/[^a-zA-Z\s]/g, ""))
+  }
+     autoCapitalize="words"
+     autoComplete="family-name"
+     keyboardType="default"
+/>
+  
+    </View>
 
-
-    <Button title="Add User"/>
+    <Button title="Add User"
+    onPress={() => {
+      console.log("Name: " + Name +
+        "Surname: " + Surname)
+    }}
+    />
 
       <StatusBar style="auto" />
     </View>
