@@ -1,98 +1,181 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, ScrollView, SafeAreaView, Animated, ViewStyle, StyleProp} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useState } from 'react';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useState, useRef, useEffect, ReactNode } from 'react';
+
+
+
+ type RootStackParamList = {
+   Home: undefined;
+   ViewDetails: {
+    NameSend: string;
+    SurnameSend: string; 
+  };
+ };
+  
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+type MainScreenProps = NativeStackScreenProps<
+RootStackParamList,
+'Home'
+>;
+
+type ViewDetailsProps = NativeStackScreenProps<
+RootStackParamList,
+'ViewDetails'
+>;
 
 export default function App() {
+return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={MainScreen}/>
+        <Stack.Screen name="ViewDetails" component={ViewDetails}/>
+      </Stack.Navigator>  
+    </NavigationContainer>
+  );
+  
+};
 
-  const [Name, setName] = useState('');
+// MainScreen Function
+
+function MainScreen({navigation}: MainScreenProps) {
+
+  <Button title="Add User"                              
+          onPress={() => {
+            navigation.navigate('ViewDetails', {
+              NameSend: Name,
+              SurnameSend: Surname
+            });
+          }}
+        />
+
+  const [Name, setName] = useState('');                
   const [Surname, setSurname] = useState('');
 
-  console.log("App is running")
-
-  return (
-    <View >
-
-      <Image style={styles.mainImg}
-       source={require('./_images/zamalek.jpeg')}/>
-
- 
-      <Text style={styles.WelcomeTxt}>Lets see if this works</Text>
-
-
-      <View style={styles.inputFlex}>
-
-      <Text style={styles.enterTxt}>Enter your surname</Text>
-      <TextInput 
-      placeholder="John"
-      value={Name}
-      onChangeText={(text) =>
-      setName(text.replace(/[^a-zA-Z\s]/g, ""))
-  }
-     autoCapitalize="words"
-     autoComplete="name"
-     keyboardType="default"
-/>
-    
-    </View>
-      <View style={styles.inputFlex}>
-      <Text>Enter your surname</Text>
-      <TextInput
-      placeholder="Doe"
-      value={Surname}
-      onChangeText={(text) =>
-      setSurname(text.replace(/[^a-zA-Z\s]/g, ""))
-  }
-     autoCapitalize="words"
-     autoComplete="family-name"
-     keyboardType="default"
-/>
+  console.log("App is running");
   
-    </View>
+  return (
+  <View>                    
+    <SafeAreaView>
+     <ScrollView>
 
-    <Button title="Add User"
-    onPress={() => {
-      console.log("Name: " + Name +
-        "Surname: " + Surname)
-    }}
-    />
+  
+    
+      <Image style={styles.mainImage} 
+      source={require('./_images/zamalek.jpg')}/>
+      <Text style={styles.welcomeText}>Welcome to my App!</Text>
+
+     
+    <View style={styles.inputFlex}>
+      <Text style={styles.labelText}>Enter your name:</Text>
+      <TextInput style={styles.InputText} 
+                        placeholder="John" 
+                        autoCapitalize="words" 
+                        autoComplete="name" 
+                        keyboardType="default"
+                        onChangeText={newText => setName(newText)}/>
+    </View>  
+  
+    <View style={styles.inputFlex}>
+      <Text style={styles.labelText}>Enter your surname:</Text>
+      <TextInput style={styles.InputText} 
+                 placeholder="Doe" 
+                 autoCapitalize="words" 
+                 autoComplete="name-family" 
+                 keyboardType="default"
+                 onChangeText={newText => setSurname(newText)}/>
+    </View>
+    
+
 
       <StatusBar style="auto" />
+      </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }
 
+
+
+function ViewDetails( {navigation, route}: ViewDetailsProps) {
+  const NameGet = route.params.NameSend;
+  const SurnameGet = route.params.SurnameSend;
+
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Name: {NameGet} Surname: {SurnameGet}</Text>
+    </View>
+  );
+};
+
+interface FadeInViewProps{
+  children: ReactNode;
+  style?: StyleProp<ViewStyle>
+}
+
+
+
+
+const FaidInView = ({ children, style}: FadeInViewProps) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current
+  
+  useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 4000,
+        useNativeDriver: false
+      }
+    ).start();
+  },[fadeAnim])
+
+  return (
+    <Animated.View style ={{
+      ...(style as object),
+      opacity: fadeAnim
+    }}>
+      {children}
+    </Animated.View>
+
+  
+  );
+}
+
+
 const styles = StyleSheet.create({
-  WelcomeTxt: {
-    paddingTop: 40,
-    color: 'blue',
-    fontWeight: 'bold',
-    fontSize: 30,
-    textAlign: 'center'
+  welcomeText: {
+   paddingTop: 70,
+   color: 'purple',
+   fontWeight: 'bold',
+   fontSize: 50,
+   textAlign: 'center'
   },
 
-enterTxt: {
+labelText: {
   fontWeight: 'bold',
 },
 
-userInputTxt: {
-  borderBottomWidth: 1
+InputText:{
+  borderBottomWidth: 1,
+
 },
 
-mainImg: {
-  height: 250,
-  width: 270,
-  paddingTop: 25,
+mainImage: {
+  height: 350,
+  width: 400,
+  paddingTop: 60,
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
 },
 
 inputFlex: {
   flexDirection: 'row',
-  marginTop: 25
+  marginTop: 25,
+  justifyContent: 'space-evenly', 
 }
-
-
 
 });
