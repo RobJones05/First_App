@@ -45,15 +45,18 @@ function MainScreen({navigation}: MainScreenProps) {
 
   <Button title="Add User"                              
           onPress={() => {
+            if((isEmpty(Name)==false) && (isEmpty(Surname)==false)){
             navigation.navigate('ViewDetails', {
               NameSend: Name,
               SurnameSend: Surname
             });
+          }
           }}
         />
 
   const [Name, setName] = useState('');                
   const [Surname, setSurname] = useState('');
+  const [Error, setError] = useState('');
 
   console.log("App is running");
   
@@ -98,7 +101,16 @@ function MainScreen({navigation}: MainScreenProps) {
   );
 }
 
+function isEmpty(value : any){
+  return(
+    (value == null) ||
 
+    (value.hasOwnProperty('length') && value.length === 0) ||
+
+    (value.constructor === Object && Object.keys(value).length ===0)
+  )
+
+}
 
 function ViewDetails( {navigation, route}: ViewDetailsProps) {
   const NameGet = route.params.NameSend;
@@ -176,6 +188,13 @@ inputFlex: {
   flexDirection: 'row',
   marginTop: 25,
   justifyContent: 'space-evenly', 
+},
+
+errorRed: {
+  color: 'red',
+  fontWeight: 'bold',
+  fontSize: 30,
+  textAlign: 'center'
 }
 
 });
