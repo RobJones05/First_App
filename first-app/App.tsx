@@ -45,11 +45,14 @@ function MainScreen({navigation}: MainScreenProps) {
 
   <Button title="Add User"                              
           onPress={() => {
-            if((isEmpty(Name)==false) && (isEmpty(Surname)==false)){
+            if((isEmpty(Name)==false) || (isEmpty(Surname)==false)){
             navigation.navigate('ViewDetails', {
               NameSend: Name,
               SurnameSend: Surname
             });
+            setError("")
+          } else {
+             setError("Please fill in all fields")
           }
           }}
         />
