@@ -118,10 +118,58 @@ function isEmpty(value : any){
 function ViewDetails( {navigation, route}: ViewDetailsProps) {
   const NameGet = route.params.NameSend;
   const SurnameGet = route.params.SurnameSend;
+  const [selectedValue, setSelectValue] = useState('0')
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Name: {NameGet} Surname: {SurnameGet}</Text>
+      <View style ={{ flex:0, alignItems: 'center', justifyContent: 'center'}}>
+      <Text style={{fontWeight: 'bold', fontSize: 20}}>Hello {NameGet} {SurnameGet}</Text>
+      <Text>Please select a language:</Text>
+      </View>
+
+      <View style={styles.radioContainer}>
+        <View style={styles.radioGroup}>
+          <View style={styles.RadioButton}>
+            <RadioButton.Android
+            value = "1"
+            status={selectedValue == "1" ? 'checked' : 'unchecked'}
+
+            onPress={() => setSelectValue('1')}
+            color="#0c2064"
+            />
+            <Text style={styles.radioLabel}>React Natice</Text>
+
+
+          
+          </View>
+          <View style={styles.RadioButton}>
+            <RadioButton.Android
+            value = "1"
+            status={selectedValue == "2" ? 'checked' : 'unchecked'}
+
+            onPress={() => setSelectValue('2')}
+            color="#0c2064"
+            />
+            <Text style={styles.radioLabel}>Kotlin</Text>
+
+
+          
+          </View>
+          <View style={styles.RadioButton}>
+            <RadioButton.Android
+            value = "3"
+            status={selectedValue == "3" ? 'checked' : 'unchecked'}
+
+            onPress={() => setSelectValue('3')}
+            color="#0c2064"
+            />
+            <Text style={styles.radioLabel}>CSS and HTML</Text>
+
+
+          
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -198,6 +246,41 @@ errorRed: {
   fontWeight: 'bold',
   fontSize: 30,
   textAlign: 'center'
-}
+},
 
+radioContainer: {
+ flex: 0,
+ backgroundColor:'#529FCB',
+ justifyContent: 'center',
+ alignItems: 'center'
+},
+
+RadioButton: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+
+radioLabel: {
+  marginLeft: 5,
+  fontSize: 15,
+  color: 'black'
+},
+
+radioGroup: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-around',
+  marginTop: 20,
+  borderRadius: 6,
+  backgroundColor: '#ADD1E6',
+  padding: 15,
+  elevation: 5,
+  shadowColor: '#19394e',
+  shadowOffset: {
+    width: 0,
+    height: 1,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3
+}
 });
