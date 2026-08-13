@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button, Image, ScrollView, SafeAreaView, Animated, ViewStyle, StyleProp} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, ScrollView, SafeAreaView, Animated, ViewStyle, StyleProp, ImageSourcePropType} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useState, useRef, useEffect, ReactNode } from 'react';
@@ -118,7 +118,8 @@ function isEmpty(value : any){
 function ViewDetails( {navigation, route}: ViewDetailsProps) {
   const NameGet = route.params.NameSend;
   const SurnameGet = route.params.SurnameSend;
-  const [selectedValue, setSelectValue] = useState('0')
+  const [selectedValue, setSelectValue] = useState('0');
+  const [ImageBlock, setImage] = useState<ImageSourcePropType | undefined>(undefined);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -167,6 +168,37 @@ function ViewDetails( {navigation, route}: ViewDetailsProps) {
 
 
           
+          </View>
+
+          <View style={{flex:1 }}>
+            <Text style={{fontWeight: "bold", flex: 0, paddingTop: 30,
+              justifyContent: 'center', textAlign: 'center', alignItems: 'center'
+            }}>
+              Your chosen lanuage:
+              </Text>
+              <Button title="Click here"
+              onPress={() => {
+                switch(selectedValue){
+                  case "1":
+                    setImage(require('./_images/reactnative.png'));
+                    break;
+
+                  case "2":
+                    setImage(require('./_images/kotlin.png'));
+                    break;
+
+                  case "3":
+                    setImage(require('./_images/htmlcss.png'));
+                    break;
+                default:
+                  setImage(undefined);
+                }
+              }}
+              />
+          <view style={styles.container}>
+            <Image source={ ImageBlock } style={styles.viewImage}></Image>
+            
+            </view>    
           </View>
         </View>
       </View>
@@ -282,5 +314,17 @@ radioGroup: {
   },
   shadowOpacity: 0.25,
   shadowRadius: 3
+},
+
+container: {
+  flex: 0,
+  justifyContent: 'center',
+  alignItems: 'center'
+},
+
+viewImage: {
+  width: 350,
+  height: 350,
+  alignContent: 'center'
 }
 });
